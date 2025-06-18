@@ -8,17 +8,17 @@ export class VideosController {
 
   @Get()
   async findAll(): Promise<Video[]> {
-    return this.videoService.videos({});
+    return this.videoService.findAll();
   }
 
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<Video | null> {
-    return this.videoService.video({ id });
+    return this.videoService.findOne({ id });
   }
 
   @Post()
   async create(@Body() videoData: Prisma.VideoCreateInput): Promise<Video> {
-    return this.videoService.createVideo(videoData);
+    return this.videoService.create(videoData);
   }
 
   @Put(':id')
@@ -26,14 +26,11 @@ export class VideosController {
     @Param('id') id: string,
     @Body() videoData: Prisma.VideoUpdateInput,
   ): Promise<Video> {
-    return this.videoService.updateVideo({
-      where: { id },
-      data: videoData,
-    });
+    return this.videoService.update({ where: { id }, data: videoData });
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<Video> {
-    return this.videoService.deleteVideo({ id });
+    return this.videoService.delete({ id });
   }
 }
